@@ -22,10 +22,12 @@ pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL)
 
   if (!exists('api_key')) {
     pardot_client.authenticate()
+  } else if (exists('api_key') && api_key == 'Login Failed' ) {
+    pardot_client.authenticate()
+  } else {
+    request_url <- pardot_client.build_url(param_list)
+    pardot_client.api_call(request_url)
   }
-
-  request_url <- pardot_client.build_url(param_list)
-  pardot_client.api_call(request_url)
 }
 
 
@@ -60,6 +62,7 @@ pardot_client.build_url <- function(param_list) {
   # optional fields
   api_identifier_field = pardot_client.scrub_opts(param_list$identifier_field)
   api_identifier = pardot_client.scrub_opts(param_list$identifier)
+
   request_url <- paste0("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",.paRdotEnv$data$pardot_user_key,"&")
   return(request_url)
 }

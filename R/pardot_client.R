@@ -22,7 +22,7 @@ pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL)
 
   if (!exists('api_key')) {
     pardot_client.authenticate()
-  } else if (exists('api_key') && api_key == 'Login Failed' ) {
+  } else if (exists('api_key') && api_key == "Login failed" ) {
     pardot_client.authenticate()
   } else {
     request_url <- pardot_client.build_url(param_list)

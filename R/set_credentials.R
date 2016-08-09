@@ -22,4 +22,5 @@ set_credentials <- function(pardot_username, pardot_password, pardot_user_key){
   else{
     warning("Warning -- Pardot credentials must be set!")
   }
+  pardot_client.authenticate()
 }

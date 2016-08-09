@@ -11,9 +11,6 @@
 #' @export
 #' pardot_client
 
-
-
-
 pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL) {
   # object & operator are required fields
   # identifier fields / identifier are optional
@@ -21,15 +18,15 @@ pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL)
   param_list <- (as.list(match.call()))
 
   if (is.null(api_key)) {
-    authenticate()
+    pardot_client.authenticate()
   }
 
-  request_url <- build_url(param_list)
-  api_call(request_url)
+  request_url <- pardot_client.build_url(param_list)
+  pardot_client.api_call(request_url)
 }
 
 
-authenticate <- function() {
+pardot_client.authenticate <- function() {
   # body params must be set in list. Add .env get that will fetch these items
   auth_body  <- list(email = .paRdotEnv$data$pardot_username,
                      password = .paRdotEnv$data$pardot_password,
@@ -42,34 +39,33 @@ authenticate <- function() {
   api_key <<- xml_text(content(fetch_api_call))
 }
 
-api_call <- function(request_url) {
+pardot_client.api_call <- function(request_url) {
   resp <- GET(request_url)
   if ( resp$status != 200 ) {
-    authenticate()
+    pardot_client.authenticate()
     resp <- GET(request_url, content_type_xml())
   }
   xml_response <- xmlNode(content(resp, "parsed"))
   return(xml_response)
 }
 
-build_url <- function(param_list) {
+pardot_client.build_url <- function(param_list) {
   # required fields
   api_object = param_list$object
   api_operator = param_list$operator
 
   # optional fields
-  api_identifier_field = scrub_opts(param_list$identifier_field)
-  api_identifier = scrub_opts(param_list$identifier)
-
-  request_url <- paste("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",Sys.getenv("PARDOT_USER_KEY"),"&", collapse=" ")
-  return(gsub(" ", '', request_url))
+  api_identifier_field = pardot_client.scrub_opts(param_list$identifier_field)
+  api_identifier = pardot_client.scrub_opts(param_list$identifier)
+  request_url <- paste0("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",.paRdotEnv$data$pardot_user_key,"&")
+  return(request_url)
 }
 
-scrub_opts <- function(opt) {
+pardot_client.scrub_opts <- function(opt) {
   if( is.null(opt) || opt == '' ) {
     return('/')
   } else {
-    new_opt <- cat('/',opt)
-    return(gsub(' ', '', new_opt))
+    new_opt <- paste0('/',opt)
+    return(new_opt)
   }
 }

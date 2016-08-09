@@ -7,7 +7,7 @@
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")
-#' pardot_client("campaigns", "query")}
+#' pardot_client("campaign", "query")}
 #' @export
 #' pardot_client
 

@@ -2,3 +2,6 @@
 
 export(pardot_client)
 export(set_credentials)
+import(XML)
+import(httr)
+import(xml2)

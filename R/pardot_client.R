@@ -10,6 +10,9 @@
 #' pardot_client("campaign", "query")}
 #' @export
 #' pardot_client
+#' @import httr
+#' @import xml2
+#' @import XML
 
 pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL) {
   # object & operator are required fields

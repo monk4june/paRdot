@@ -17,7 +17,7 @@ pardot_client <- function(object,operator,identifier_field=NULL,identifier=NULL)
   # optional field to implement <- api_request_params,"&format=",api_format
   param_list <- (as.list(match.call()))
 
-  if (is.null(api_key)) {
+  if (!exists('api_key')) {
     pardot_client.authenticate()
   }
 

@@ -21,6 +21,6 @@ Make a call to the Pardot API and return XML
 \examples{
 \dontrun{
 set_credentials("your-username", "your-password", "your-user-key")
-pardot_client("campaigns", "query")}
+pardot_client("campaign", "query")}
 }
 

@@ -22,5 +22,4 @@ pardot_client('object', 'operator', 'identifier_field', 'identifier')
 ### To Do:
 - Extend to use optional request params, and JSON format
 - Stick to one XML library
-- Clean up string concatenation functions
 - Extend to make pre-baked api calls that we can use to return lists, strings, etc. 

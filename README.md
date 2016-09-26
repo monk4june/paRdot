@@ -13,10 +13,10 @@ Make sure to set your Pardot credentials
 set_credentials('your-username', 'your-password', 'your-user-key')
 ```
 
-Next, make a **paRdot** api call. Will return a XML response
+Next, make a **paRdot** api call. Will return a dataframe
 
 ```
-pardot_client('object', 'operator', 'identifier_field', 'identifier')
+your_dataframe <- pardot_client('object', 'operator', 'identifier_field', 'identifier')
 ```
 
 ### To Do:

@@ -56,8 +56,10 @@ pardot_client.api_call <- function(request_url) {
   raw_df <- pardot_client.get_data_frame(request_url)
   lowest_date <- tail(raw_df, 1)$result.prospect.created_at
   polished_df <- rbind(raw_df)
+  sink(polished_df)
   
   while (!nrow(raw_df) < 200) {
+    sink("we made it to the loop")
     loop_url <- pardot_client.iterative_request_url(request_url, lowest_date)
     raw_df <- pardot_client.get_data_frame(loop_url)
     lowest_date <- raw_df[200,]$result.prospect.created_at

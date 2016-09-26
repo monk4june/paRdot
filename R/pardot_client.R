@@ -46,12 +46,17 @@ pardot_client.authenticate <- function() {
 
 pardot_client.api_call <- function(request_url) {
   resp <- GET(request_url)
+
   if ( resp$status != 200 ) {
     pardot_client.authenticate()
     resp <- GET(request_url, content_type_json())
   }
-  xml_response <- xmlNode(content(resp, "parsed"))
-  return(resp)
+  
+  jsonresp <- fromJSON(request_url)
+  df <- as.data.frame(jsonresp[2])
+ 
+  #xml_response <- xmlNode(content(resp, "parsed"))
+  return(df)
 }
 
 pardot_client.build_url <- function(param_list) {

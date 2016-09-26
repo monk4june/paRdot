@@ -40,7 +40,7 @@ pardot_prospects.api_call <- function() {
 
   while (!nrow(raw_df) < 200) {
     print(paste0("Pulling data from", lowest_date))
-    loop_url <- pardot_prospects.iterative_request_url(request_url, lowest_date)
+    loop_url <- pardot_client.iterative_request_url(request_url, lowest_date)
     raw_df <- pardot_client.get_data_frame(loop_url)
     lowest_date <- tail(raw_df, 1)$result.prospect.created_at
     raw_df$result.prospect.campaign_name <- raw_df$result.prospect.campaign$name
@@ -49,11 +49,6 @@ pardot_prospects.api_call <- function() {
   }
 
   return(polished_df)
-}
-
-pardot_prospects.iterative_request_url <- function(requestUrl, theDate) {
-  theDate <- gsub(' ', 'T', theDate)
-  iterative_request_url <- paste0(requestUrl,"&created_after=",theDate,"&sort_by=created_at&sort_order=ascending")
 }
 
 

@@ -50,37 +50,13 @@ pardot_client.api_call <- function(request_url) {
 
   if ( resp$status != 200 ) {
     pardot_client.authenticate()
-    resp <- GET(request_url, content_type_json())
-    jsonresp <- fromJSON(request_url)
+    resp <- GET(request_url, content_type_xml())
   }
 
-  raw_df <- pardot_client.get_data_frame(request_url)
-  raw_df$result.prospect.campaign_name <- raw_df$result.prospect.campaign$name
-  raw_df <- subset(raw_df, select=-result.prospect.campaign)
-  lowest_date <- tail(raw_df, 1)$result.prospect.created_at
-  polished_df <- rbind(raw_df)
-
-  while (!nrow(raw_df) < 200) {
-    print(paste0("Pulling data from", lowest_date))
-    loop_url <- pardot_client.iterative_request_url(request_url, lowest_date)
-    raw_df <- pardot_client.get_data_frame(loop_url)
-    lowest_date <- tail(raw_df, 1)$result.prospect.created_at
-    raw_df$result.prospect.campaign_name <- raw_df$result.prospect.campaign$name
-    raw_df <- subset(raw_df, select=-result.prospect.campaign)
-    polished_df <- rbind(polished_df, raw_df)
-  }
-
-
-
-
-  #xml_response <- xmlNode(content(resp, "parsed"))
-  return(polished_df)
+  xml_response <- xmlNode(content(resp, "parsed"))
+  return(xml_response)
 }
 
-pardot_client.iterative_request_url <- function(requestUrl, theDate) {
-  theDate <- gsub(' ', 'T', theDate)
-  iterative_request_url <- paste0(requestUrl,"&created_after=",theDate,"&sort_by=created_at&sort_order=ascending")
-}
 
 pardot_client.get_data_frame <- function(theUrl) {
   jsonResponse <- fromJSON(theUrl)
@@ -99,6 +75,11 @@ pardot_client.build_url <- function(param_list) {
 
   request_url <- paste0("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",Sys.getenv("PARDOT_USER_KEY"),"&output=bulk&format=json")
   return(request_url)
+}
+
+pardot_client.iterative_request_url <- function(requestUrl, theDate) {
+  theDate <- gsub(' ', 'T', theDate)
+  iterative_request_url <- paste0(requestUrl,"&created_after=",theDate,"&sort_by=created_at&sort_order=ascending")
 }
 
 pardot_client.scrub_opts <- function(opt) {

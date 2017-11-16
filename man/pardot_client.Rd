@@ -2,9 +2,10 @@
 % Please edit documentation in R/pardot_client.R
 \name{pardot_client}
 \alias{pardot_client}
-\title{Make a call to the Pardot API and return XML}
+\title{Make a call to the Pardot API and return XML or data frame}
 \usage{
-pardot_client(object, operator, identifier_field = NULL, identifier = NULL)
+pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
+  request_pars = NULL, result_format = "json")
 }
 \arguments{
 \item{object}{A string containing a Pardot Object}
@@ -14,13 +15,21 @@ pardot_client(object, operator, identifier_field = NULL, identifier = NULL)
 \item{identifier_field}{A string with an optional identifier field. Can be null}
 
 \item{identifier}{A string with an optional identifier that can be null if identifier_field is null}
+
+\item{request_pars}{A string of query parameters. Can be null}
+
+\item{result_format}{A string specifying the result format used for API calls: "json" or "xml". If json, pardot_client() returns a data frame.}
+}
+\value{
+XML or a data frame in tbl_df (dplyr) format
 }
 \description{
-Make a call to the Pardot API and return XML
+Make a call to the Pardot API and return XML or data frame
 }
 \examples{
 \dontrun{
 set_credentials("your-username", "your-password", "your-user-key")
-pardot_client("campaign", "query")}
+pardot_client("campaign", "query")
+pardot_client(object = "campaign", operator = "query", 
+  request_params = "created_after=yesterday&id_greater_than=1234XYZ")}
 }
-

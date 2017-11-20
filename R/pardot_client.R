@@ -95,6 +95,8 @@ pardot_client.api_call_json <- function(request_url, verbose = FALSE) {
 			ready <- TRUE
 		}
 	}
+	# Substitute dots by underscores
+	colnames(polished_df) <- gsub(".", "_", colnames(polished_df), fixed = TRUE) 
 	return(polished_df)
 }
 

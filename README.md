@@ -21,17 +21,20 @@ df <- pardot_client(object = "prospect", operator = "query", request_pars="creat
 **Prebaked dataframes:**
 
 ```
-all_prospects_dataframe <- pardot_prospects()
-```
-
-```
-all_campaigns_dataframe <- pardot_campaigns()
+df <- pardot_campaigns()
+df <- pardot_lists()
+df <- pardot_prospects()
+df <- pardot_tag_objects()
+df <- pardot_tags()
+df <- pardot_users()
+df <- pardot_visitor_activities()
+df <- pardot_visitors()
 ```
 
 **XML response with some configuration:**
 
 ```
-your_dataframe <- pardot_client('object', 'operator', 'identifier_field', 'identifier')
+xml_response <- pardot_client(object, operator, identifier_field, identifier, result_format="xml")
 ```
 
 **Data frame from JSON response, with Pardot API call parameters supported:**

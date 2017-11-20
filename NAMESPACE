@@ -2,7 +2,13 @@
 
 export(pardot_campaigns)
 export(pardot_client)
+export(pardot_lists)
 export(pardot_prospects)
+export(pardot_tag_objects)
+export(pardot_tags)
+export(pardot_users)
+export(pardot_visitor_activities)
+export(pardot_visitors)
 export(set_credentials)
 import(XML)
 import(dplyr)

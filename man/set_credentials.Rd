@@ -20,4 +20,3 @@ Simple function to set the users pardot credentials in an R environment variable
 \dontrun{
 set_credentials("your-username", "your-password", "your-user-key")}
 }
-

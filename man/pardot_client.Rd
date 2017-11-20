@@ -5,7 +5,7 @@
 \title{Make a call to the Pardot API and return XML or data frame}
 \usage{
 pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
-  request_pars = NULL, result_format = "json")
+  request_pars = NULL, result_format = "json", verbose = FALSE)
 }
 \arguments{
 \item{object}{A string containing a Pardot Object}
@@ -19,6 +19,8 @@ pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
 \item{request_pars}{A string of query parameters. Can be null}
 
 \item{result_format}{A string specifying the result format used for API calls: "json" or "xml". If json, pardot_client() returns a data frame.}
+
+\item{verbose}{A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call}
 }
 \value{
 XML or a data frame in tbl_df (dplyr) format

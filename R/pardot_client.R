@@ -6,6 +6,7 @@
 #' @param identifier A string with an optional identifier that can be null if identifier_field is null
 #' @param request_pars A string of query parameters. Can be null
 #' @param result_format A string specifying the result format used for API calls: "json" or "xml". If json, pardot_client() returns a data frame.
+#' @param verbose A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call
 #' @return XML or a data frame in tbl_df (dplyr) format
 #' @examples
 #' \dontrun{
@@ -20,7 +21,7 @@
 #' @import jsonlite
 #' @import dplyr
 
-pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json") {
+pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json", verbose = FALSE) {
   # object & operator are required fields
   # identifier fields / identifier are optional
   # optional field to implement <- api_request_params,"&format=",api_format
@@ -31,10 +32,9 @@ pardot_client <- function(object, operator, identifier_field=NULL, identifier=NU
   } else if (exists('api_key') && api_key == "Login failed" ) {
     pardot_client.authenticate()
   } else {
-	message("Perform API request")
     request_url <- pardot_client.build_url(param_list)
 	if (result_format == "json") {
-		pardot_client.api_call_json(request_url)
+		pardot_client.api_call_json(request_url, verbose = verbose)
 	} else {
 		pardot_client.api_call(request_url)
 	}
@@ -54,9 +54,10 @@ pardot_client.authenticate <- function() {
   api_key <<- xml_text(content(fetch_api_call))
 }
 
-pardot_client.api_call_json <- function(request_url) {
+pardot_client.api_call_json <- function(request_url, verbose = FALSE) {
 	
 	# Perform request
+    if (verbose) print(request_url)
 	resp <- GET(request_url)
 	if (resp$status != 200) {
 		pardot_client.authenticate()
@@ -72,19 +73,24 @@ pardot_client.api_call_json <- function(request_url) {
 		cat(".")
 		if (n_offset == 0) {
 			raw_df <- pardot_client.get_data_frame(request_url)
+			if (verbose) print(str(raw_df))
 		} else {
-			raw_df <- pardot_client.get_data_frame(pardot_client.iterative_request_url(request_url, n_offset = n_offset))
+		    iterative_request_url <- pardot_client.iterative_request_url(request_url, n_offset = n_offset)
+            if (verbose) print(iterative_request_url)
+			raw_df <- pardot_client.get_data_frame(iterative_request_url)
 		}
-		# Substitute embedded campaign dataframe column by the "name" column it contains
-		colCampaign <- grep("\\.campaign$", colnames(raw_df), ignore.case = FALSE, value = TRUE)
-		colCampaignName <- paste0(colCampaign, "_name")
-		raw_df[, colCampaignName] <- raw_df[, colCampaign]$name
-		raw_df[, colCampaign] <- NULL
+	    if (all(dim(raw_df) == c(1, 1))) {
+	        warning(raw_df[,1])
+	        raw_df <- data.frame()
+	    }
+	    # Unnest nested data frames
+	    flat_df <- pardot_client.unnest_dataframe(raw_df, verbose = verbose)
 		# Append
-		n <- nrow(raw_df)
+		n <- nrow(flat_df)
 		if (n > 0) {
 			n_offset <- n_offset + n
-			polished_df <- bind_rows(polished_df, raw_df)
+			polished_df <- bind_rows(polished_df, flat_df)
+			if (n < 200) ready <- TRUE
 		} else {
 			ready <- TRUE
 		}
@@ -123,7 +129,6 @@ pardot_client.build_url <- function(param_list) {
   api_request_params <- if (!is.null(api_request_params)) paste0("&", sub("^&+", "", api_request_params)) else NULL  
 
   request_url <- paste0("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",Sys.getenv("PARDOT_USER_KEY"),api_request_params,"&output=bulk&format=json")
-  print(request_url)
   return(request_url)
 }
 
@@ -139,7 +144,6 @@ pardot_client.iterative_request_url <- function(request_url, theDate = NULL, n_o
 	} else {
 		iterative_request_url <- request_url
 	}
-	print(iterative_request_url)
 	return(iterative_request_url)
 }
 
@@ -150,4 +154,26 @@ pardot_client.scrub_opts <- function(opt) {
     new_opt <- paste0('/',opt)
     return(new_opt)
   }
+}
+
+pardot_client.unnest_dataframe <- function(df, verbose = FALSE) {
+    # Unnest any nested data frames in the data frame
+    df_colclasses <- sapply(df, class)
+    df_colclasses_dataframe <- names(df_colclasses[df_colclasses == "data.frame"])
+    if (length(df_colclasses_dataframe) == 0) {
+        # Nothing to unnest
+        return(df)
+    }
+    # Start with flat data frame, then subsequently bind the unnested data frames
+    df0 <- df[, setdiff(colnames(df), df_colclasses_dataframe)]
+    for (d in df_colclasses_dataframe) {
+        if (verbose) message("Unnesting nested data frame ", d)
+        # Use recursion to unnest any fields of class data frame in this data frame
+        df_embedded <- Recall(df[, d])
+        nested_colnames <- colnames(df_embedded)
+        unnested_colnames <- paste(d, nested_colnames, sep = ".")
+        colnames(df_embedded) <- unnested_colnames
+        df0 <- bind_cols(df0, df_embedded)
+    }
+    return(df0)
 }

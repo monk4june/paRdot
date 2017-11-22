@@ -2,7 +2,7 @@
 % Please edit documentation in R/pardot_lists.R
 \name{pardot_lists}
 \alias{pardot_lists}
-\title{Retrieve Prospect lists}
+\title{Retrieve Pardot Lists}
 \usage{
 pardot_lists(...)
 }
@@ -12,7 +12,7 @@ Allowed parameter names are created_after, created_before, id_greater_than, id_l
 updated_before, updated_after.}
 }
 \value{
-A tbl_df (dplyr) dataframe.
+A tbl_df data frame.
 }
 \description{
 Make a call to the Pardot API and return the lists matching the specified criteria parameters.

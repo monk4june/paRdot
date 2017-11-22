@@ -23,7 +23,7 @@ pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
 \item{verbose}{A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call}
 }
 \value{
-XML or a data frame in tbl_df (dplyr) format
+XML or a data frame in tbl_df format
 }
 \description{
 Make a call to the Pardot API and return XML or data frame

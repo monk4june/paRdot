@@ -2,7 +2,7 @@
 % Please edit documentation in R/pardot_tag_objects.R
 \name{pardot_tag_objects}
 \alias{pardot_tag_objects}
-\title{Retrieve Pardot tag objects}
+\title{Retrieve Pardot Tag Objects}
 \usage{
 pardot_tag_objects(...)
 }
@@ -11,7 +11,7 @@ pardot_tag_objects(...)
 Allowed parameter names are created_after, created_before, id_greater_than, id_less_than.}
 }
 \value{
-A tbl_df (dplyr) dataframe.
+A tbl_df data frame.
 }
 \description{
 Make a call to the Pardot API and return the tag objects matching the specified criteria parameters.

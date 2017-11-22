@@ -2,7 +2,7 @@
 % Please edit documentation in R/pardot_visitor_activities.R
 \name{pardot_visitor_activities}
 \alias{pardot_visitor_activities}
-\title{Retrieve Pardot visitor activities}
+\title{Retrieve Pardot Visitor Activities}
 \usage{
 pardot_visitor_activities(...)
 }
@@ -13,7 +13,7 @@ custom_url_only, email_only, file_only, form_only, form_handler_only, landing_pa
 custom_url_id, email_id, file_id, form_id, form_handler_id, landing_page_id, prospect_id, visitor_id.}
 }
 \value{
-A tbl_df (dplyr) dataframe.
+A tbl_df data frame.
 }
 \description{
 Make a call to the Pardot API and return the visitor activities matching the specified criteria parameters.

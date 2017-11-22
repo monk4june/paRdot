@@ -2,7 +2,7 @@
 % Please edit documentation in R/pardot_prospects.R
 \name{pardot_prospects}
 \alias{pardot_prospects}
-\title{Retrieve Pardot prospects}
+\title{Retrieve Pardot Prospects}
 \usage{
 pardot_prospects(...)
 }
@@ -14,7 +14,7 @@ last_activity_after, last_activity_never, list_id, new, score_equal_to, score_gr
 updated_after, updated_before.}
 }
 \value{
-A tbl_df (dplyr) dataframe.
+A tbl_df data frame.
 }
 \description{
 Make a call to the Pardot API and return the prospects matching the specified criteria parameters.

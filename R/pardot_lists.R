@@ -1,11 +1,11 @@
-#' Retrieve Prospect lists
+#' Retrieve Pardot Lists
 #'
 #' Make a call to the Pardot API and return the lists matching the specified criteria parameters. 
 #'
 #' @param ... Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 #'   Allowed parameter names are created_after, created_before, id_greater_than, id_less_than, name, 
 #'   updated_before, updated_after.
-#' @return A tbl_df (dplyr) dataframe.
+#' @return A tbl_df data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

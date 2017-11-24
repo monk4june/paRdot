@@ -5,7 +5,8 @@
 #' @param identifier_field A string with an optional identifier field. Can be null
 #' @param identifier A string with an optional identifier that can be null if identifier_field is null
 #' @param request_pars A string of query parameters. Can be null
-#' @param result_format A string specifying the result format used for API calls: "json" or "xml". If json, pardot_client() returns a data frame.
+#' @param result_format A string specifying the result format used for API calls: "json" (default) or "xml". If json, pardot_client() returns a data frame.
+#' @param unlist_dataframe A logical, default TRUE. If it is FALSE all fields having embedded lists are returned as they are. If unlist_dataframe is TRUE a field with embedded list(s) is converted to multiple records and/or fields. The values of the other fields are duplicated across these records. Applies to object "visit".
 #' @param verbose A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call
 #' @return XML or a data frame in tbl_df format
 #' @examples
@@ -13,7 +14,7 @@
 #' set_credentials("your-username", "your-password", "your-user-key")
 #' pardot_client("campaign", "query")
 #' pardot_client(object = "campaign", operator = "query", 
-#'   request_params = "created_after=yesterday&id_greater_than=1234XYZ")}
+#'   request_params = "created_after=yesterday&id_greater_than=492276479")}
 #' @export pardot_client
 #' @import httr
 #' @import xml2
@@ -21,7 +22,7 @@
 #' @import jsonlite
 #' @import dplyr
 
-pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json", verbose = FALSE) {
+pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json", unlist_dataframe = TRUE, verbose = FALSE) {
   # object & operator are required fields
   # identifier fields / identifier are optional
   # optional field to implement <- api_request_params,"&format=",api_format
@@ -34,7 +35,7 @@ pardot_client <- function(object, operator, identifier_field=NULL, identifier=NU
   } else {
     request_url <- pardot_client.build_url(param_list)
 	if (result_format == "json") {
-		pardot_client.api_call_json(request_url, verbose = verbose)
+		pardot_client.api_call_json(request_url, unlist_dataframe = unlist_dataframe, verbose = verbose)
 	} else {
 		pardot_client.api_call(request_url)
 	}
@@ -54,35 +55,50 @@ pardot_client.authenticate <- function() {
   api_key <<- xml_text(content(fetch_api_call))
 }
 
-pardot_client.api_call_json <- function(request_url, verbose = FALSE) {
+pardot_client.api_call_json <- function(request_url, unlist_dataframe = TRUE, verbose = FALSE) {
 	
 	# Retrieve results in chunks
 	polished_df <- data.frame()
 	ready <- FALSE
-	n_offset <- 0
+	chunk_size <- 200
+	# Initialize n_offset with value given in request_url
+	n_offset <- sub("^.*[?&]n_offset=([0-9]*).*$", "\\1", request_url)
+	n_offset0 <- if (n_offset == request_url) 0 else as.integer(n_offset)
+	n_offset <- n_offset0
 	while (!ready) {
-		cat(".")
-		if (n_offset == 0) {
+	    # Progress indicator: number for every k, dot for every chunk
+		progress_1k <- (n_offset - n_offset0) / 1000
+	    cat(ifelse(progress_1k == round(progress_1k, 0), as.character(progress_1k), "."))
+	    if (n_offset == n_offset0) {
 		    if (verbose) print(request_url)
 			raw_df <- pardot_client.get_data_frame(request_url)
 			if (verbose) print(str(raw_df))
 		} else {
 		    iterative_request_url <- 
 		        pardot_client.iterative_request_url(request_url, n_offset = n_offset)
-            if (verbose) print(iterative_request_url)
-			raw_df <- pardot_client.get_data_frame(iterative_request_url)
+		    if (verbose) print(iterative_request_url)
+		    raw_df <- pardot_client.get_data_frame(iterative_request_url)
 		}
+	    n <- nrow(raw_df)
 	    # Unnest nested data frames
-	    flat_df <- flatten(raw_df, recursive = TRUE)
-		# Append
-		n <- nrow(flat_df)
+        flat_df <- flatten(raw_df, recursive = TRUE)
+        # Unlist list fields
+        if (unlist_dataframe) {
+            unlist_flat_df <- pardot_client.unlist_dataframe(flat_df)
+            flat_df <- unlist_flat_df
+        }
+	    # Append
 		if (n > 0) {
 			n_offset <- n_offset + n
-			polished_df <- bind_rows(polished_df, flat_df)
-			if (n < 200) ready <- TRUE
+            polished_df <- rbind_pages(list(polished_df, flat_df))
+			if (n < chunk_size) ready <- TRUE
 		} else {
 			ready <- TRUE
 		}
+	}
+	if (verbose && unlist_dataframe) {
+	    if (nrow(polished_df) - n_offset > 0)
+	        message(sprintf("Unlist created %d more rows", nrow(polished_df) - n_offset))
 	}
 	# Substitute dots by underscores
 	colnames(polished_df) <- gsub(".", "_", colnames(polished_df), fixed = TRUE) 
@@ -103,7 +119,6 @@ pardot_client.api_call <- function(request_url) {
 
 
 pardot_client.get_data_frame <- function(theUrl) {
-    message("pardot_client.get_data_frame")
     # GET the url response in json format and convert to list
     # Replace NULL values by NA so that list can be cast to data frame
     respjson <- GET(theUrl, content_type_json())
@@ -131,7 +146,11 @@ pardot_client.get_data_frame <- function(theUrl) {
 pardot_client.nonnull_list <- function(list_with_nulls) {
     list_without_nulls <- lapply(list_with_nulls, function(x) {
         if (class(x) == "list")
-            x
+            unlist(
+                lapply(x, function(e) {
+                    if(is.null(e)) NA else e
+                })
+            )
         else if (is.null(x))
             NA
         else
@@ -177,6 +196,20 @@ pardot_client.scrub_opts <- function(opt) {
     new_opt <- paste0('/',opt)
     return(new_opt)
   }
+}
+
+pardot_client.unlist_dataframe <- function(df) {
+    df_colclasses <- sapply(df, class)
+    df_colclasses_list <- names(df_colclasses[df_colclasses == "list"])
+    if (length(df_colclasses_list) == 0) {
+        # Nothing to unlist
+        return(df)
+    }
+    # Cast list fields to data frame, making a wider data frame
+    df_unlisted <- df %>% rowwise() %>% do({
+        data.frame(., stringsAsFactors = FALSE)
+    })
+    return(df_unlisted)
 }
 
 pardot_client.unnest_dataframe <- function(df, verbose = FALSE) {

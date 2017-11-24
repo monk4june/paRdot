@@ -5,7 +5,8 @@
 \title{Make a call to the Pardot API and return XML or data frame}
 \usage{
 pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
-  request_pars = NULL, result_format = "json", verbose = FALSE)
+  request_pars = NULL, result_format = "json", unlist_dataframe = TRUE,
+  verbose = FALSE)
 }
 \arguments{
 \item{object}{A string containing a Pardot Object}
@@ -18,7 +19,9 @@ pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
 
 \item{request_pars}{A string of query parameters. Can be null}
 
-\item{result_format}{A string specifying the result format used for API calls: "json" or "xml". If json, pardot_client() returns a data frame.}
+\item{result_format}{A string specifying the result format used for API calls: "json" (default) or "xml". If json, pardot_client() returns a data frame.}
+
+\item{unlist_dataframe}{A logical, default TRUE. If it is FALSE all fields having embedded lists are returned as they are. If unlist_dataframe is TRUE a field with embedded list(s) is converted to multiple records and/or fields. The values of the other fields are duplicated across these records. Applies to object "visit".}
 
 \item{verbose}{A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call}
 }
@@ -33,5 +36,5 @@ Make a call to the Pardot API and return XML or data frame
 set_credentials("your-username", "your-password", "your-user-key")
 pardot_client("campaign", "query")
 pardot_client(object = "campaign", operator = "query", 
-  request_params = "created_after=yesterday&id_greater_than=1234XYZ")}
+  request_params = "created_after=yesterday&id_greater_than=492276479")}
 }

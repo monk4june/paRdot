@@ -66,6 +66,8 @@ If result_format is _json_ the function returns a single data frame, using succe
 
 Verbose = TRUE shows the successive call urls and the data structure returned by the first call.
 
+A progress indicator shows call progress. Individual calls are marked by a dot, which corresponds to 200 records received. A number is shown after every 1000 records received.
+
 **XML response with some configuration**
 
 Use result_format="xml" to obtain the requested data in XML format. 

@@ -11,7 +11,7 @@ pardot_lifecycle_stages(...)
 Allowed parameter names are id_greater_than, id_less_than.}
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and return the lifecycle stages matching the specified criteria parameters.

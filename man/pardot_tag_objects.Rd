@@ -11,7 +11,7 @@ pardot_tag_objects(...)
 Allowed parameter names are created_after, created_before, id_greater_than, id_less_than.}
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and return the tag objects matching the specified criteria parameters.

@@ -5,7 +5,7 @@
 #' @param ... Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 #'   Allowed parameter names are created_after, created_before, deleted, id_greater_than, 
 #'   id_less_than, list_id, updated_before, updated_after.
-#' @return A tbl_df data frame.
+#' @return A data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

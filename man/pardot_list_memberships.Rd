@@ -12,7 +12,7 @@ Allowed parameter names are created_after, created_before, deleted, id_greater_t
 id_less_than, list_id, updated_before, updated_after.}
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and return the list memberships matching the specified criteria parameters.

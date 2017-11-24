@@ -7,7 +7,7 @@
 pardot_account()
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and return the account data.

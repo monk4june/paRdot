@@ -6,7 +6,7 @@
 #'   Allowed parameter names are created_after, created_before, id_greater_than, id_less_than, prospect_only, type,
 #'   custom_url_only, email_only, file_only, form_only, form_handler_only, landing_page_only, campaign_id, 
 #'   custom_url_id, email_id, file_id, form_id, form_handler_id, landing_page_id, prospect_id, visitor_id.
-#' @return A tbl_df data frame.
+#' @return A data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

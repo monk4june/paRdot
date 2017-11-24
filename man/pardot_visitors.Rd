@@ -12,7 +12,7 @@ Allowed parameter names are created_after, created_before, id_greater_than, name
 updated_after, only_identified, prospect_ids.}
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and returns the visitors matching the specified criteria parameters.

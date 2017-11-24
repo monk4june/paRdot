@@ -14,7 +14,7 @@ last_activity_after, last_activity_never, list_id, new, score_equal_to, score_gr
 updated_after, updated_before.}
 }
 \value{
-A tbl_df data frame.
+A data frame.
 }
 \description{
 Make a call to the Pardot API and return the prospects matching the specified criteria parameters.

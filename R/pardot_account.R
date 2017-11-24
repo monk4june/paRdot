@@ -2,7 +2,7 @@
 #'
 #' Make a call to the Pardot API and return the account data.
 #'
-#' @return A tbl_df data frame.
+#' @return A data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

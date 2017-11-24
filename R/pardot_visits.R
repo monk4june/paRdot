@@ -4,7 +4,7 @@
 #'
 #' @param ... Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 #'   Allowed parameter names are ids, visitor_ids, prospect_ids.
-#' @return A tbl_df data frame. Note: The field visitor_page_view contains nested data frames (to be fixed).
+#' @return A data frame. Note: The field visitor_page_view in the returned data frame contains nested lists. Use pardot_client() parameter unlist_dataframe = TRUE to expand the list field into data frame rows, or unlist_dataframe = FALSE to retain the lists as they are.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

@@ -8,7 +8,7 @@
 #' @param result_format A string specifying the result format used for API calls: "json" (default) or "xml". If json, pardot_client() returns a data frame.
 #' @param unlist_dataframe A logical, default TRUE. If it is FALSE all fields having embedded lists are returned as they are. If unlist_dataframe is TRUE a field with embedded list(s) is converted to multiple records and/or fields. The values of the other fields are duplicated across these records. Applies to object "visit".
 #' @param verbose A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call
-#' @return XML or a data frame in tbl_df format
+#' @return XML or a data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

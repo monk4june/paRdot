@@ -7,7 +7,7 @@
 #'   grade_greater_than, grade_less_than, id_greater_than, id_less_than, is_starred, last_activity_before, 
 #'   last_activity_after, last_activity_never, list_id, new, score_equal_to, score_greater_than, score_less_than, 
 #'   updated_after, updated_before.
-#' @return A tbl_df data frame.
+#' @return A data frame.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

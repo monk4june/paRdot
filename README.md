@@ -18,7 +18,7 @@ Next, make a paRdot API call.
 ```
 # Using pardot_client()
 df <- pardot_client(object = "prospect", operator = "query", 
-                    request_pars="created_after=today", result_format="json", verbose = FALSE)
+                    request_pars="created_after=today", result_format="json", verbose = 0)
 # Using wrapper function for pardot_client()
 df <- pardot_prospects(created_after = "today")
 ```

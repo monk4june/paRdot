@@ -4,7 +4,7 @@
 \alias{pardot_prospects}
 \title{Retrieve Pardot Prospects}
 \usage{
-pardot_prospects(...)
+pardot_prospects(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
@@ -12,6 +12,8 @@ Allowed parameter names are assigned, assigned_to_user, created_after, created_b
 grade_greater_than, grade_less_than, id_greater_than, id_less_than, is_starred, last_activity_before, 
 last_activity_after, last_activity_never, list_id, new, score_equal_to, score_greater_than, score_less_than, 
 updated_after, updated_before.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

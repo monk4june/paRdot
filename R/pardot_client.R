@@ -7,7 +7,7 @@
 #' @param request_pars A string of query parameters. Can be null
 #' @param result_format A string specifying the result format used for API calls: "json" (default) or "xml". If json, pardot_client() returns a data frame.
 #' @param unlist_dataframe A logical, default TRUE. If it is FALSE all fields having embedded lists are returned as they are. If unlist_dataframe is TRUE a field with embedded list(s) is converted to multiple records and/or fields. The values of the other fields are duplicated across these records. Applies to object "visit".
-#' @param verbose A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call
+#' @param verbose Verbose output. Integer value, default zero is non-verbose. 1 displays a progress bar consisting of dots and numbers, for respectively every 200th and 1000th received record. 2 displays the successive call urls and the data structure returned by the first call.
 #' @return XML or a data frame.
 #' @examples
 #' \dontrun{
@@ -22,7 +22,7 @@
 #' @import jsonlite
 #' @import dplyr
 
-pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json", unlist_dataframe = TRUE, verbose = FALSE) {
+pardot_client <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars=NULL, result_format="json", unlist_dataframe = TRUE, verbose = 0) {
   # object & operator are required fields
   # identifier fields / identifier are optional
   # optional field to implement <- api_request_params,"&format=",api_format
@@ -55,7 +55,7 @@ pardot_client.authenticate <- function() {
   api_key <<- xml_text(content(fetch_api_call))
 }
 
-pardot_client.api_call_json <- function(request_url, unlist_dataframe = TRUE, verbose = FALSE) {
+pardot_client.api_call_json <- function(request_url, unlist_dataframe = TRUE, verbose = 0) {
 	
 	# Retrieve results in chunks
 	polished_df <- data.frame()
@@ -68,15 +68,15 @@ pardot_client.api_call_json <- function(request_url, unlist_dataframe = TRUE, ve
 	while (!ready) {
 	    # Progress indicator: number for every k, dot for every chunk
 		progress_1k <- (n_offset - n_offset0) / 1000
-	    cat(ifelse(progress_1k == round(progress_1k, 0), as.character(progress_1k), "."))
+	    if (verbose > 0) cat(ifelse(progress_1k == round(progress_1k, 0), as.character(progress_1k), "."))
 	    if (n_offset == n_offset0) {
-		    if (verbose) print(request_url)
+		    if (verbose > 1) print(request_url)
 			raw_df <- pardot_client.get_data_frame(request_url)
-			if (verbose) print(str(raw_df))
+			if (verbose > 1) print(str(raw_df))
 		} else {
 		    iterative_request_url <- 
 		        pardot_client.iterative_request_url(request_url, n_offset = n_offset)
-		    if (verbose) print(iterative_request_url)
+		    if (verbose > 1) print(iterative_request_url)
 		    raw_df <- pardot_client.get_data_frame(iterative_request_url)
 		}
 	    n <- nrow(raw_df)
@@ -96,7 +96,7 @@ pardot_client.api_call_json <- function(request_url, unlist_dataframe = TRUE, ve
 			ready <- TRUE
 		}
 	}
-	if (verbose && unlist_dataframe) {
+	if (verbose > 1 && unlist_dataframe) {
 	    if (nrow(polished_df) - n_offset > 0)
 	        message(sprintf("Unlist created %d more rows", nrow(polished_df) - n_offset))
 	}
@@ -212,7 +212,7 @@ pardot_client.unlist_dataframe <- function(df) {
     return(df_unlisted)
 }
 
-pardot_client.unnest_dataframe <- function(df, verbose = FALSE) {
+pardot_client.unnest_dataframe <- function(df, verbose = 0) {
     # Unnest any nested data frames in the data frame
     df_colclasses <- sapply(df, class)
     df_colclasses_dataframe <- names(df_colclasses[df_colclasses == "data.frame"])
@@ -223,7 +223,7 @@ pardot_client.unnest_dataframe <- function(df, verbose = FALSE) {
     # Start with flat data frame, then subsequently bind the unnested data frames
     df0 <- df[, setdiff(colnames(df), df_colclasses_dataframe)]
     for (d in df_colclasses_dataframe) {
-        if (verbose) message("Unnesting nested data frame ", d)
+        if (verbose > 1) message("Unnesting nested data frame ", d)
         # Use recursion to unnest any fields of class data frame in this data frame
         df_embedded <- Recall(df[, d])
         nested_colnames <- colnames(df_embedded)

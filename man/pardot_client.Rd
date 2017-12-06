@@ -6,7 +6,7 @@
 \usage{
 pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
   request_pars = NULL, result_format = "json", unlist_dataframe = TRUE,
-  verbose = FALSE)
+  verbose = 0)
 }
 \arguments{
 \item{object}{A string containing a Pardot Object}
@@ -23,7 +23,7 @@ pardot_client(object, operator, identifier_field = NULL, identifier = NULL,
 
 \item{unlist_dataframe}{A logical, default TRUE. If it is FALSE all fields having embedded lists are returned as they are. If unlist_dataframe is TRUE a field with embedded list(s) is converted to multiple records and/or fields. The values of the other fields are duplicated across these records. Applies to object "visit".}
 
-\item{verbose}{A logical, default FALSE. If TRUE it shows the successive call urls and the data structure returned by the first call}
+\item{verbose}{Verbose output. Integer value, default zero is non-verbose. 1 displays a progress bar consisting of dots and numbers, for respectively every 200th and 1000th received record. 2 displays the successive call urls and the data structure returned by the first call.}
 }
 \value{
 XML or a data frame.

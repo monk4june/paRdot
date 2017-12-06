@@ -4,7 +4,10 @@
 \alias{pardot_account}
 \title{Retrieve Pardot Account}
 \usage{
-pardot_account()
+pardot_account(verbose = 0)
+}
+\arguments{
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

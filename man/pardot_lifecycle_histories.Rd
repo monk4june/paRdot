@@ -4,11 +4,13 @@
 \alias{pardot_lifecycle_histories}
 \title{Retrieve Pardot Lifecycle Histories}
 \usage{
-pardot_lifecycle_histories(...)
+pardot_lifecycle_histories(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are created_after, created_before, id_greater_than, id_less_than.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

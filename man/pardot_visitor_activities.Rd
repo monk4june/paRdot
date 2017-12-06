@@ -4,13 +4,15 @@
 \alias{pardot_visitor_activities}
 \title{Retrieve Pardot Visitor Activities}
 \usage{
-pardot_visitor_activities(...)
+pardot_visitor_activities(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are created_after, created_before, id_greater_than, id_less_than, prospect_only, type,
 custom_url_only, email_only, file_only, form_only, form_handler_only, landing_page_only, campaign_id, 
 custom_url_id, email_id, file_id, form_id, form_handler_id, landing_page_id, prospect_id, visitor_id.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

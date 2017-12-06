@@ -4,12 +4,14 @@
 \alias{pardot_list_memberships}
 \title{Retrieve Pardot List Memberships}
 \usage{
-pardot_list_memberships(...)
+pardot_list_memberships(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are created_after, created_before, deleted, id_greater_than, 
 id_less_than, list_id, updated_before, updated_after.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

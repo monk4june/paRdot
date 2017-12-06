@@ -7,6 +7,7 @@
 #'   grade_greater_than, grade_less_than, id_greater_than, id_less_than, is_starred, last_activity_before, 
 #'   last_activity_after, last_activity_never, list_id, new, score_equal_to, score_greater_than, score_less_than, 
 #'   updated_after, updated_before.
+#' @param verbose Verbose output. See pardot_client(). 
 #' @return A data frame.
 #' @examples
 #' \dontrun{
@@ -16,12 +17,14 @@
 #' @export pardot_prospects
 #'
 
-pardot_prospects <- function(...) {
+pardot_prospects <- function(..., verbose = 0) {
 	# Evaluate parameters in the context of the parent environment,
 	# combine parameters to a querystring e.g. param1=value1&param2=value2&...
 	newcall <- quote(pardot_client(object = "prospect", operator = "query"))
 	thiscall <- match.call()
+	thiscall <- thiscall[names(thiscall) != "verbose"]
 	request_params <- paste(paste(names(thiscall[-1]), thiscall[-1], sep = "="), collapse = "&")
 	newcall[["request_pars"]] <- request_params
+	newcall[["verbose"]] <- verbose
 	eval(newcall, parent.frame())
 }

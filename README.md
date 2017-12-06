@@ -64,9 +64,7 @@ Operator is either _query_ or _read_. The latter usually requires parameters ide
 
 If result_format is _json_ the function returns a single data frame, using successive API calls with iterative url querystrings to accumulate the results. The returned data frame includes all records selected by the request_pars which should be formatted as a url query string. Iteration uses the API querystring parameter _offset_. The first call uses no offset. If _offset_ is specified as part of the request_pars querystring that value is used for the first call. Successive calls increment the offset by 200. 
 
-Verbose = TRUE shows the successive call urls and the data structure returned by the first call.
-
-A progress indicator shows call progress. Individual calls are marked by a dot, which corresponds to 200 records received. A number is shown after every 1000 records received.
+Information about call progress is available using the verbose parameter. 1 displays a progress bar. 2 additionally displays call urls and the data structure returned by the first call.
 
 **XML response with some configuration**
 

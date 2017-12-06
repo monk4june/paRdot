@@ -4,11 +4,13 @@
 \alias{pardot_visits}
 \title{Retrieve Pardot Visits}
 \usage{
-pardot_visits(...)
+pardot_visits(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are ids, visitor_ids, prospect_ids.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame. Note: The field visitor_page_view in the returned data frame contains nested lists. Use pardot_client() parameter unlist_dataframe = TRUE to expand the list field into data frame rows, or unlist_dataframe = FALSE to retain the lists as they are.

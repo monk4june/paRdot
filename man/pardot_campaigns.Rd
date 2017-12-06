@@ -4,12 +4,14 @@
 \alias{pardot_campaigns}
 \title{Retrieve Pardot Campaigns}
 \usage{
-pardot_campaigns(...)
+pardot_campaigns(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are created_after, created_before, id_greater_than, id_less_than, name, 
 updated_before, updated_after.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

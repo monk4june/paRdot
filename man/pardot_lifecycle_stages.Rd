@@ -4,11 +4,13 @@
 \alias{pardot_lifecycle_stages}
 \title{Retrieve Pardot Lifecycle Stages}
 \usage{
-pardot_lifecycle_stages(...)
+pardot_lifecycle_stages(..., verbose = 0)
 }
 \arguments{
 \item{...}{Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 Allowed parameter names are id_greater_than, id_less_than.}
+
+\item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
 A data frame.

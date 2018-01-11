@@ -10,7 +10,7 @@ pardot_account(verbose = 0)
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#account.
 }
 \description{
 Make a call to the Pardot API and return the account data.

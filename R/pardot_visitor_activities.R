@@ -7,7 +7,7 @@
 #'   custom_url_only, email_only, file_only, form_only, form_handler_only, landing_page_only, campaign_id, 
 #'   custom_url_id, email_id, file_id, form_id, form_handler_id, landing_page_id, prospect_id, visitor_id.
 #' @param verbose Verbose output. See pardot_client(). 
-#' @return A data frame.
+#' @return A data frame. See http://developer.pardot.com/kb/object-field-references/#visitor-activity.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

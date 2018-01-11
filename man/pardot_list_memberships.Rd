@@ -14,7 +14,7 @@ id_less_than, list_id, updated_before, updated_after.}
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#list-membership.
 }
 \description{
 Make a call to the Pardot API and return the list memberships matching the specified criteria parameters.

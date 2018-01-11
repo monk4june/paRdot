@@ -6,7 +6,7 @@
 #'   Allowed parameter names are created_after, created_before, id_greater_than, name, update_before, 
 #'   updated_after, only_identified, prospect_ids.
 #' @param verbose Verbose output. See pardot_client(). 
-#' @return A data frame.
+#' @return A data frame. See http://developer.pardot.com/kb/object-field-references/#visitor.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

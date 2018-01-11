@@ -15,7 +15,7 @@ custom_url_id, email_id, file_id, form_id, form_handler_id, landing_page_id, pro
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#visitor-activity.
 }
 \description{
 Make a call to the Pardot API and return the visitor activities matching the specified criteria parameters.

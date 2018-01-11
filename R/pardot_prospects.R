@@ -8,7 +8,7 @@
 #'   last_activity_after, last_activity_never, list_id, new, score_equal_to, score_greater_than, score_less_than, 
 #'   updated_after, updated_before.
 #' @param verbose Verbose output. See pardot_client(). 
-#' @return A data frame.
+#' @return A data frame. See http://developer.pardot.com/kb/object-field-references/#prospect.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

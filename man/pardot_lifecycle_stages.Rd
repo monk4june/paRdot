@@ -13,7 +13,7 @@ Allowed parameter names are id_greater_than, id_less_than.}
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#lifecycle-stage.
 }
 \description{
 Make a call to the Pardot API and return the lifecycle stages matching the specified criteria parameters.

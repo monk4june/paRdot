@@ -13,7 +13,7 @@ Allowed parameter names are created_after, created_before, id_greater_than, list
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#email-clicks.
 }
 \description{
 Make a call to the Pardot API and return the email clicks matching the specified criteria parameters.

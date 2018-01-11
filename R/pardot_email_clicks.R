@@ -5,7 +5,7 @@
 #' @param ... Comma separated list of parameter name and parameter value pairs. Parameter names are not quoted. 
 #'   Allowed parameter names are created_after, created_before, id_greater_than, list_email_id, drip_program_action_id, email_template_id, tracker_redirect_id.
 #' @param verbose Verbose output. See pardot_client(). 
-#' @return A data frame.
+#' @return A data frame. See http://developer.pardot.com/kb/object-field-references/#email-clicks.
 #' @examples
 #' \dontrun{
 #' set_credentials("your-username", "your-password", "your-user-key")

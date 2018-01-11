@@ -14,7 +14,7 @@ updated_before, updated_after.}
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#campaign.
 }
 \description{
 Make a call to the Pardot API and return the campaigns matching the specified criteria parameters.

@@ -13,7 +13,7 @@ Allowed parameter names are ids, visitor_ids, prospect_ids.}
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame. Note: The field visitor_page_view in the returned data frame contains nested lists. Use pardot_client() parameter unlist_dataframe = TRUE to expand the list field into data frame rows, or unlist_dataframe = FALSE to retain the lists as they are.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#visit and http://developer.pardot.com/kb/object-field-references/#visitor-page-view. Note: The field visitor_page_view in the returned data frame contains nested lists. Use pardot_client() parameter unlist_dataframe = TRUE to expand the list field into data frame rows, or unlist_dataframe = FALSE to retain the lists as they are.
 }
 \description{
 Make a call to the Pardot API and returns the visits matching the specified criteria parameters.

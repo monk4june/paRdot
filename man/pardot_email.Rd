@@ -15,7 +15,7 @@ pardot_email(list_email_id, verbose = 0, ...)
 Allowed parameter names are include_message.}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#email.
 }
 \description{
 Make a call to the Pardot API and return the data for the specified email.

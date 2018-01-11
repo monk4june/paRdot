@@ -14,7 +14,7 @@ updated_after, only_identified, prospect_ids.}
 \item{verbose}{Verbose output. See pardot_client().}
 }
 \value{
-A data frame.
+A data frame. See http://developer.pardot.com/kb/object-field-references/#visitor.
 }
 \description{
 Make a call to the Pardot API and returns the visitors matching the specified criteria parameters.

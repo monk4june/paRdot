@@ -64,7 +64,9 @@ df <- pardot_client(object, operator, identifier_field=NULL, identifier=NULL,
                     request_pars=NULL, result_format="json", verbose=FALSE)
 ```
 
-Object is the name of a Pardot object and operator is the operation performed on that object. The table below gives an overview of the allowed combinations. Refer to the [Pardot API documentation](http://developer.pardot.com/) for more details.
+Object is the name of a Pardot object and operator is the operation performed on that object. The table below gives an overview of the allowed combinations. 
+
+Refer to the [Pardot API documentation](http://developer.pardot.com/) for more details.
 
 Object | Operation for querying the object | Operations for using the object
 --- | --- | ---

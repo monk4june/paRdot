@@ -30,10 +30,16 @@ The functions below are convenient wrappers for pardot_client().
 ```
 df <- pardot_account()
 df <- pardot_campaigns()
+df <- pardot_email()
+df <- pardot_email_clicks()
+df <- pardot_email_stats()
+df <- pardot_email_template()
+df <- pardot_forms()
 df <- pardot_lifecycle_histories()
 df <- pardot_lifecycle_stages()
 df <- pardot_list_memberships()
 df <- pardot_lists()
+df <- pardot_prospect_accounts()
 df <- pardot_prospects()
 df <- pardot_tag_objects()
 df <- pardot_tags()
@@ -73,4 +79,14 @@ Use result_format="xml" to obtain the requested data in XML format.
 ```
 xml_response <- pardot_client(object, operator, identifier_field, identifier, result_format="xml")
 ```
+**Limits**
 
+Pardot Professional edition customers have a limit of 25k API calls per day, and Ultimate edition customers have a limit of 100k API calls per day. See the Pardot knowledge base article [Using the Pardot API](http://help.pardot.com/customer/portal/articles/2128635-using-the-pardot-api)
+
+Pardot also seems to limit the number of results it returns to 100k results at a time for a single type of API call. To retrieve more result use query search criteria parameters like created_after, created_before, id_greater_than and id_less_than in subsequent function calls.
+```
+# Retrieve data in two parts
+df1 <- pardot_visitor_activities(created_after = "20170101", created_before = "20170102")
+df2 <- pardot_visitor_activities(created_after = "20170102", created_before = "20170103")
+df <- plyr::rbind.fill(df1, df2)
+```

@@ -130,15 +130,16 @@ pardot_client.get_data_frame <- function(theUrl) {
     if (res$`@attributes`$stat == "fail") {
         warning(res$err)
         return(data.frame())
-    } else if ((names(res))[2] == "account") {
+    } else if ((names(res))[2] %in% c("account", "email", "emailTemplate", "stats")) {
         res_data  <- pardot_client.nonnull_list(res[[2]])
         d <- as.data.frame(res_data, stringsAsFactors = FALSE)
     } else if ((names(res))[2] == "result") {
-        res_data  <- pardot_client.nonnull_list(res[[2]][[1]])
+        item <- which(names(res[[2]]) %in% c("campaign", "emailClick", "form", "list", "list_membership", "prospect", "prospectAccount", "tag", "tagObject", "visitor", "visitor_activity", "visit"))
+        res_data  <- pardot_client.nonnull_list(res[[2]][[item]])
         d <- as.data.frame(res_data, stringsAsFactors = FALSE)
     } else {
-        warning("Unknown paRdot API response format")
-        return(data.frame())
+        warning("paRdot API response could not be cast to dataframe")
+        return(res_data)
     }
     return(d)
 }

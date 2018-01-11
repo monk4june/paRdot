@@ -23,7 +23,7 @@ df <- pardot_client(object = "prospect", operator = "query",
 df <- pardot_prospects(created_after = "today")
 ```
 
-**Prebaked dataframes**
+**Wrapper functions for querying objects**
 
 The functions below are convenient wrappers for pardot_client(). 
 
@@ -64,13 +64,39 @@ df <- pardot_client(object, operator, identifier_field=NULL, identifier=NULL,
                     request_pars=NULL, result_format="json", verbose=FALSE)
 ```
 
-Object is the name of a Pardot object: _account_, _campaign_, _lifecycleHistory_, _lifecycleStage_, _listMembership_, _list_, _prospect_, _tagObject_, _tag_, _user_, _visitorActivity_, _visitor_, _visit_.
+Object is the name of a Pardot object and operator is the operation performed on that object. The table below gives an overview of the allowed combinations. Refer to the [Pardot API documentation](http://developer.pardot.com/) for more details.
 
-Operator is either _query_ or _read_. The latter usually requires parameters identifier_field and identifier.
+Object | Operation for querying the object | Operations for using the object
+--- | --- | ---
+_account_ | read | -
+_campaign_ | query | read, update, create
+_customField_ | query | read, update, create, delete
+_customRedirect_ | query | read
+_email_ | read | stats, send
+_emailClick_ | query | -
+_emailTemplate_ | read | listOneToOne
+_form_ | query | read
+_lifecycleHistory_ | query | read
+_lifecycleStage_ | query | -
+_listMembership_ | query | read, create, update, delete
+_list_ | query | read, create, update, delete
+_opportunity_ | query, read, update, delete, undelete
+_prospect_ | query | assign, unassign, create, batchCreate, read, update, batchUpdate, upsert, batchUpsert, delete
+_prospectAccount_ | query | create, describe, read, update, assign
+_tagObject_ | query | read
+_tag_ | query | read
+_user_ | query | read
+_visitorActivity_ | query | read
+_visitor_ | query | assign, read
+_visit_ | query | read
+
+Identifier_field and identifier are  required for operations for using the object, and specify the name and value of the identifier, respectively. 
 
 If result_format is _json_ the function returns a single data frame, using successive API calls with iterative url querystrings to accumulate the results. The returned data frame includes all records selected by the request_pars which should be formatted as a url query string. Iteration uses the API querystring parameter _offset_. The first call uses no offset. If _offset_ is specified as part of the request_pars querystring that value is used for the first call. Successive calls increment the offset by 200. 
 
 Information about call progress is available using the verbose parameter. 1 displays a progress bar. 2 additionally displays call urls and the data structure returned by the first call.
+
+The paRdot wrapper functions are for querying an object.  
 
 **XML response with some configuration**
 

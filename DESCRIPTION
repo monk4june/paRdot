@@ -16,5 +16,6 @@ Imports:
     xml2,
     XML,
     jsonlite,
-    dplyr
+    dplyr,
+    pryr
 RoxygenNote: 6.0.1

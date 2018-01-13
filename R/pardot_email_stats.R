@@ -10,16 +10,14 @@
 #' set_credentials("your-username", "your-password", "your-user-key")
 #' df <- pardot_email_stats(list_email_id = 747447245)}
 #' @export pardot_email_stats
-#'
+#' @import pryr
 
 pardot_email_stats <- function(list_email_id, verbose = 0, ...) {
 	# Evaluate parameters in the context of the parent environment,
 	# combine parameters to a querystring e.g. param1=value1&param2=value2&...
-	newcall <- quote(pardot_client(object = "email", operator = "stats", identifier_field = "id"))
-	#thiscall <- match.call()
-	#request_params <- paste(paste(names(thiscall[-(1:2)]), thiscall[-(1:2)], sep = "="), collapse = "&")
-	newcall[["identifier"]] <- list_email_id
-	#newcall[["request_pars"]] <- request_params
-	newcall[["verbose"]] <- verbose
-	eval(newcall, parent.frame())
+    dots <- lapply(pryr::named_dots(...), function(p) {
+        eval(p, parent.frame())
+    })
+    request_pars <- paste(paste(names(dots), unlist(dots), sep = "="), collapse = "&")
+    pardot_client("email", "stats", identifier_field = "id", identifier = list_email_id, request_pars = request_pars, verbose = verbose)  
 }

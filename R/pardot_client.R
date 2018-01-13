@@ -33,7 +33,7 @@ pardot_client <- function(object, operator, identifier_field=NULL, identifier=NU
   } else if (exists('api_key') && api_key == "Login failed" ) {
     pardot_client.authenticate()
   } else {
-    request_url <- pardot_client.build_url(param_list)
+    request_url <- pardot_client.build_url(object, operator, identifier_field, identifier, request_pars)
 	if (result_format == "json") {
 		pardot_client.api_call_json(request_url, unlist_dataframe = unlist_dataframe, verbose = verbose)
 	} else {
@@ -160,18 +160,11 @@ pardot_client.nonnull_list <- function(list_with_nulls) {
     return(list_without_nulls)
 }
 
-pardot_client.build_url <- function(param_list) {
-  # required fields
-  api_object = param_list$object
-  api_operator = param_list$operator
-
-  # optional fields
-  api_identifier_field = pardot_client.scrub_opts(param_list$identifier_field)
-  api_identifier = pardot_client.scrub_opts(param_list$identifier)
-  api_request_params = param_list$request_pars
-  api_request_params <- if (!is.null(api_request_params)) paste0("&", sub("^&+", "", api_request_params)) else NULL  
-
-  request_url <- paste0("https://pi.pardot.com/api/",api_object,"/version/3/do/",api_operator,api_identifier_field,api_identifier,"?api_key=",api_key,"&user_key=",Sys.getenv("PARDOT_USER_KEY"),api_request_params,"&output=bulk&format=json")
+pardot_client.build_url <- function(object, operator, identifier_field=NULL, identifier=NULL, request_pars = NULL) {
+    identifier_field <- pardot_client.scrub_opts(identifier_field)
+    identifier <- pardot_client.scrub_opts(identifier)
+    request_pars <- if (length(request_pars) > 0) sub("^&*", "\\&", request_pars)
+    request_url <- paste0("https://pi.pardot.com/api/", object,"/version/3/do/", operator, identifier_field, identifier,"?api_key=", api_key, "&user_key=", Sys.getenv("PARDOT_USER_KEY"), request_pars, "&output=bulk&format=json")
   return(request_url)
 }
 

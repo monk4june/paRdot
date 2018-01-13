@@ -12,16 +12,14 @@
 #' df <- pardot_lifecycle_histories()
 #' df <- pardot_lifecycle_histories(id_greater_than = '123')}
 #' @export pardot_lifecycle_histories
-#'
+#' @import pryr
 
 pardot_lifecycle_histories <- function(..., verbose = 0) {
 	# Evaluate parameters in the context of the parent environment,
 	# combine parameters to a querystring e.g. param1=value1&param2=value2&...
-	newcall <- quote(pardot_client(object = "lifecycleHistory", operator = "query"))
-	thiscall <- match.call()
-	thiscall <- thiscall[names(thiscall) != "verbose"]
-	request_params <- paste(paste(names(thiscall[-1]), thiscall[-1], sep = "="), collapse = "&")
-	newcall[["request_pars"]] <- request_params
-	newcall[["verbose"]] <- verbose
-	eval(newcall, parent.frame())
+    dots <- lapply(pryr::named_dots(...), function(p) {
+        eval(p, parent.frame())
+    })
+    request_pars <- paste(paste(names(dots), unlist(dots), sep = "="), collapse = "&")
+    pardot_client("lifecycleHistory", "query", request_pars = request_pars, verbose = verbose)  
 }

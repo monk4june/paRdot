@@ -70,27 +70,27 @@ Refer to the [Pardot API documentation](http://developer.pardot.com/) for more d
 
 Object | Operation for querying the object | Operations for using the object
 --- | --- | ---
-_account_ | [read](http://developer.pardot.com/kb/api-version-3/accounts/) | -
-_campaign_ | [query](http://developer.pardot.com/kb/api-version-3/campaigns/) | [read, update, create](http://developer.pardot.com/kb/api-version-3/campaigns/#using-campaigns)
-_customField_ | [query](http://developer.pardot.com/kb/api-version-3/custom-fields/) | [read, update, create, delete](http://developer.pardot.com/kb/api-version-3/custom-fields/#using-custom-fields)
-_customRedirect_ | [query](http://developer.pardot.com/kb/api-version-3/custom-redirects/) | [read](http://developer.pardot.com/kb/api-version-3/custom-redirects/#using-custom-redirects)
-_email_ | [read](http://developer.pardot.com/kb/api-version-3/emails/) | [stats](http://developer.pardot.com/kb/api-version-3/emails/#querying-email-stats), [send](http://developer.pardot.com/kb/api-version-3/emails/#sending-one-to-one-emails)
-_emailClick_ | [query](http://developer.pardot.com/kb/api-version-3/batch-email-clicks/) | -
+[_account_](http://developer.pardot.com/kb/object-field-references/#account) | [read](http://developer.pardot.com/kb/api-version-3/accounts/) | -
+[_campaign_](http://developer.pardot.com/kb/object-field-references/#campaign) | [query](http://developer.pardot.com/kb/api-version-3/campaigns/) | [read, update, create](http://developer.pardot.com/kb/api-version-3/campaigns/#using-campaigns)
+[_customField_](http://developer.pardot.com/kb/object-field-references/#custom-field) | [query](http://developer.pardot.com/kb/api-version-3/custom-fields/) | [read, update, create, delete](http://developer.pardot.com/kb/api-version-3/custom-fields/#using-custom-fields)
+[_customRedirect_](http://developer.pardot.com/kb/object-field-references/#custom-redirect) | [query](http://developer.pardot.com/kb/api-version-3/custom-redirects/) | [read](http://developer.pardot.com/kb/api-version-3/custom-redirects/#using-custom-redirects)
+[_email_](http://developer.pardot.com/kb/object-field-references/#email) | [read](http://developer.pardot.com/kb/api-version-3/emails/) | [stats](http://developer.pardot.com/kb/api-version-3/emails/#querying-email-stats), [send](http://developer.pardot.com/kb/api-version-3/emails/#sending-one-to-one-emails)
+[_emailClick_](http://developer.pardot.com/kb/object-field-references/#email-clicks) | [query](http://developer.pardot.com/kb/api-version-3/batch-email-clicks/) | -
 _emailTemplate_ | [read](http://developer.pardot.com/kb/api-version-3/email-templates/) | [listOneToOne](http://developer.pardot.com/kb/api-version-3/email-templates/#list-one-to-one-email-templates)
-_form_ | [query](http://developer.pardot.com/kb/api-version-3/forms/) | [read](http://developer.pardot.com/kb/api-version-3/forms/#using-forms)
-_lifecycleHistory_ | [query](http://developer.pardot.com/kb/api-version-3/lifecycle-histories/) | [read](http://developer.pardot.com/kb/api-version-3/lifecycle-histories/#using-lifecycle-histories)
-_lifecycleStage_ | [query](http://developer.pardot.com/kb/api-version-3/lifecycle-stages/) | -
-_listMembership_ | [query](http://developer.pardot.com/kb/api-version-3/list-memberships/) | [read, create, update, delete](http://developer.pardot.com/kb/api-version-3/list-memberships/#using-list-memberships)
-_list_ | [query](http://developer.pardot.com/kb/api-version-3/lists/) | [read, create, update, delete](http://developer.pardot.com/kb/api-version-3/lists/#using-lists)
-_opportunity_ | [query](http://developer.pardot.com/kb/api-version-3/opportunities/) | [read, update, delete, undelete](http://developer.pardot.com/kb/api-version-3/opportunities/#using-opportunities)
-_prospect_ | [query](http://developer.pardot.com/kb/api-version-3/prospects/) | [assign, unassign, create, batchCreate, read, update, batchUpdate, upsert, batchUpsert, delete](http://developer.pardot.com/kb/api-version-3/prospects/#using-prospects)
-_prospectAccount_ | [query](http://developer.pardot.com/kb/api-version-3/prospect-accounts/) | [create, describe, read, update, assign](http://developer.pardot.com/kb/api-version-3/prospect-accounts/#using-prospect-accounts)
-_tagObject_ | [query](http://developer.pardot.com/kb/api-version-3/tag-objects/) | [read](http://developer.pardot.com/kb/api-version-3/tag-objects/#using-tagobjects)
-_tag_ | [query](http://developer.pardot.com/kb/api-version-3/tags/) | [read](http://developer.pardot.com/kb/api-version-3/tags/#using-tags)
-_user_ | [query](http://developer.pardot.com/kb/api-version-3/users/) | [read](http://developer.pardot.com/kb/api-version-3/users/#using-users)
-_visitorActivity_ | [query](http://developer.pardot.com/kb/api-version-3/visitor-activities/) | [read](http://developer.pardot.com/kb/api-version-3/visitor-activities/#using-visitor-activities)
-_visitor_ | [query](http://developer.pardot.com/kb/api-version-3/visitors/) | [assign, read](http://developer.pardot.com/kb/api-version-3/visitors/#using-visitors)
-_visit_ | [query](http://developer.pardot.com/kb/api-version-3/visits/) | [read](http://developer.pardot.com/kb/api-version-3/visits/#using-visits)
+[_form_](http://developer.pardot.com/kb/object-field-references/#form) | [query](http://developer.pardot.com/kb/api-version-3/forms/) | [read](http://developer.pardot.com/kb/api-version-3/forms/#using-forms)
+[_lifecycleHistory_](http://developer.pardot.com/kb/object-field-references/#lifecycle-history) | [query](http://developer.pardot.com/kb/api-version-3/lifecycle-histories/) | [read](http://developer.pardot.com/kb/api-version-3/lifecycle-histories/#using-lifecycle-histories)
+[_lifecycleStage_](http://developer.pardot.com/kb/object-field-references/#lifecycle-stage) | [query](http://developer.pardot.com/kb/api-version-3/lifecycle-stages/) | -
+[_listMembership_](http://developer.pardot.com/kb/object-field-references/#list-membership) | [query](http://developer.pardot.com/kb/api-version-3/list-memberships/) | [read, create, update, delete](http://developer.pardot.com/kb/api-version-3/list-memberships/#using-list-memberships)
+[_list_](http://developer.pardot.com/kb/object-field-references/#list) | [query](http://developer.pardot.com/kb/api-version-3/lists/) | [read, create, update, delete](http://developer.pardot.com/kb/api-version-3/lists/#using-lists)
+[_opportunity_](http://developer.pardot.com/kb/object-field-references/#opportunity) | [query](http://developer.pardot.com/kb/api-version-3/opportunities/) | [read, update, delete, undelete](http://developer.pardot.com/kb/api-version-3/opportunities/#using-opportunities)
+[_prospect_](http://developer.pardot.com/kb/object-field-references/#prospect) | [query](http://developer.pardot.com/kb/api-version-3/prospects/) | [assign, unassign, create, batchCreate, read, update, batchUpdate, upsert, batchUpsert, delete](http://developer.pardot.com/kb/api-version-3/prospects/#using-prospects)
+[_prospectAccount_](http://developer.pardot.com/kb/object-field-references/#prospect-account) | [query](http://developer.pardot.com/kb/api-version-3/prospect-accounts/) | [create, describe, read, update, assign](http://developer.pardot.com/kb/api-version-3/prospect-accounts/#using-prospect-accounts)
+[_tagObject_](http://developer.pardot.com/kb/object-field-references/#tag-object) | [query](http://developer.pardot.com/kb/api-version-3/tag-objects/) | [read](http://developer.pardot.com/kb/api-version-3/tag-objects/#using-tagobjects)
+[_tag_](http://developer.pardot.com/kb/object-field-references/#tag) | [query](http://developer.pardot.com/kb/api-version-3/tags/) | [read](http://developer.pardot.com/kb/api-version-3/tags/#using-tags)
+[_user_](http://developer.pardot.com/kb/object-field-references/#user) | [query](http://developer.pardot.com/kb/api-version-3/users/) | [read](http://developer.pardot.com/kb/api-version-3/users/#using-users)
+[_visitorActivity_](http://developer.pardot.com/kb/object-field-references/#visitor-activity) | [query](http://developer.pardot.com/kb/api-version-3/visitor-activities/) | [read](http://developer.pardot.com/kb/api-version-3/visitor-activities/#using-visitor-activities)
+[_visitor_](http://developer.pardot.com/kb/object-field-references/#visitor) | [query](http://developer.pardot.com/kb/api-version-3/visitors/) | [assign, read](http://developer.pardot.com/kb/api-version-3/visitors/#using-visitors)
+[_visit_](http://developer.pardot.com/kb/object-field-references/#visit) | [query](http://developer.pardot.com/kb/api-version-3/visits/) | [read](http://developer.pardot.com/kb/api-version-3/visits/#using-visits)
 
 Identifier_field and identifier are  required for operations for using the object, and specify the name and value of the identifier, respectively. 
 

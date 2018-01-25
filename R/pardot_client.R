@@ -201,29 +201,17 @@ pardot_client.unlist_dataframe <- function(df) {
     }
     # Cast list fields to data frame, making a wider data frame
     df_unlisted <- df %>% rowwise() %>% do({
-        data.frame(., stringsAsFactors = FALSE)
+        # Convert NULLs in list fields to NA to avoid data.frame() casting error
+        dfrow <- .
+        listfields <- names(dfrow)[unlist(lapply(names(dfrow), function(f) class(dfrow[[f]]))) == "list"]
+        if (length(listfields) > 0) {
+            dfrow[[listfields]] <- lapply(dfrow[[listfields]], function(v) {
+                v[is.null(v)] <- NA
+                v
+            })
+        }
+        # Now cast to data frame
+        df_unl <- data.frame(dfrow, stringsAsFactors = FALSE)
     })
     return(df_unlisted)
-}
-
-pardot_client.unnest_dataframe <- function(df, verbose = 0) {
-    # Unnest any nested data frames in the data frame
-    df_colclasses <- sapply(df, class)
-    df_colclasses_dataframe <- names(df_colclasses[df_colclasses == "data.frame"])
-    if (length(df_colclasses_dataframe) == 0) {
-        # Nothing to unnest
-        return(df)
-    }
-    # Start with flat data frame, then subsequently bind the unnested data frames
-    df0 <- df[, setdiff(colnames(df), df_colclasses_dataframe)]
-    for (d in df_colclasses_dataframe) {
-        if (verbose > 1) message("Unnesting nested data frame ", d)
-        # Use recursion to unnest any fields of class data frame in this data frame
-        df_embedded <- Recall(df[, d])
-        nested_colnames <- colnames(df_embedded)
-        unnested_colnames <- paste(d, nested_colnames, sep = ".")
-        colnames(df_embedded) <- unnested_colnames
-        df0 <- bind_cols(df0, df_embedded)
-    }
-    return(df0)
 }

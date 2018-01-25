@@ -1,7 +1,7 @@
 Package: paRdot
 Type: Package
 Title: An R client for the Pardot API
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
     person("Stuart", "Illson",, "stuart.illson@gmail.com", c("aut", "cre", "cph")),
     person("Alexander", "Vlasblom",, "demgenman@outlook.com", c("aut", "cph"))

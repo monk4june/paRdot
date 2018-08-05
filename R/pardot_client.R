@@ -164,7 +164,7 @@ pardot_client.build_url <- function(object, operator, identifier_field=NULL, ide
     identifier_field <- pardot_client.scrub_opts(identifier_field)
     identifier <- pardot_client.scrub_opts(identifier)
     request_pars <- if (length(request_pars) > 0) sub("^&*", "\\&", request_pars)
-    request_url <- paste0("https://pi.pardot.com/api/", object,"/version/3/do/", operator, identifier_field, identifier,"?api_key=", api_key, "&user_key=", Sys.getenv("PARDOT_USER_KEY"), request_pars, "&output=full&format=json")
+    request_url <- paste0("https://pi.pardot.com/api/", object,"/version/3/do/", operator, identifier_field, identifier,"?api_key=", api_key, "&user_key=", Sys.getenv("PARDOT_USER_KEY"), request_pars, "&format=json")
   return(request_url)
 }
 
